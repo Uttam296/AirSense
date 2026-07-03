@@ -1,3 +1,5 @@
+const predictRoutes =
+require("./routes/predictRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const historyRoutes = require(
 
@@ -36,6 +38,13 @@ app.use("/api/profile", profileRoutes);
 
 app.use(cors());
 app.use(express.json());
+app.use(
+
+    "/api/predict",
+
+    predictRoutes
+
+);
 
 const PORT = 3000;
 
