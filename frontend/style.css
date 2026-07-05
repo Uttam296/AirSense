@@ -540,3 +540,52 @@ button:hover {
   .pollutant-grid { grid-template-columns: repeat(2, 1fr); }
   .search-inner { width: 90vw; }
 }
+.ai-divider{
+
+    border:none;
+
+    height:1px;
+
+    background:rgba(255,255,255,.12);
+
+    margin:20px 0;
+
+}
+
+.ai-prediction{
+
+    text-align:center;
+
+}
+
+.ai-title{
+
+    font-size:15px;
+
+    color:#bbb;
+
+    margin-bottom:10px;
+
+}
+
+.ai-value{
+
+    font-size:40px;
+
+    font-weight:bold;
+
+    color:#00e676;
+
+}
+
+.ai-status{
+
+    margin-top:8px;
+
+    color:#eee;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}

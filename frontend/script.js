@@ -84,7 +84,7 @@ updateBtn.addEventListener("click", async () => {
         document.getElementById("pm10").innerText = data.pm10;
         document.getElementById("co").innerText = data.co;
         document.getElementById("no2").innerText = data.no2;
-        document.getElementById("aqi").innerText = data.aqi; // O₃ slot reuses AQI for now
+        document.getElementById("o3").innerText = data.o3 ?? "--"; // O₃ slot reuses AQI for now
         document.getElementById("so2").innerText = data.so2 ?? "N/A";
 
         // ===== WEATHER =====
@@ -131,6 +131,67 @@ updateBtn.addEventListener("click", async () => {
 
         // ===== GAUGE =====
         updateGauge(data.aqi);
+        // ===== AI Prediction =====
+
+const predictionResponse = await fetch(
+
+`http://localhost:3000/api/predict?pm25=${data.pm25}&pm10=${data.pm10}&no2=${data.no2}&co=${data.co}&so2=${data.so2}&o3=${data.o3}`
+
+);
+
+const predictionData = await predictionResponse.json();
+
+document.getElementById(
+
+"predictedAQI"
+
+).innerText = predictionData.predictedAQI;
+
+const predicted = Number(predictionData.predictedAQI);
+
+let predictionText = "";
+
+if(predicted <= 50){
+
+    predictionText = "🟢 Good";
+
+}
+
+else if(predicted <=100){
+
+    predictionText = "🟡 Moderate";
+
+}
+
+else if(predicted <=150){
+
+    predictionText = "🟠 Unhealthy for Sensitive Groups";
+
+}
+
+else if(predicted <=200){
+
+    predictionText = "🔴 Unhealthy";
+
+}
+
+else if(predicted <=300){
+
+    predictionText = "🟣 Very Unhealthy";
+
+}
+
+else{
+
+    predictionText = "⚫ Hazardous";
+
+}
+
+document.getElementById(
+
+"predictionMessage"
+
+).innerText = predictionText;
 
         // ===== MAP =====
         if (!map) {
