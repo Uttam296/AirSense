@@ -1,149 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Signup</title>
-
-<style>
-
-body{
-
-    margin:0;
-
-    height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:linear-gradient(
-        135deg,
-        #43cea2,
-        #185a9d
-    );
-
-    font-family:Arial,sans-serif;
-
-}
-
-.signup-container{
-
-    background:white;
-
-    padding:40px;
-
-    width:350px;
-
-    border-radius:20px;
-
-    text-align:center;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.2);
-
-}
-
-h1{
-
-    color:#333;
-
-}
-
-input{
-
-    width:90%;
-
-    padding:12px;
-
-    margin:10px 0;
-
-    border-radius:10px;
-
-    border:1px solid #ccc;
-
-}
-
-button{
-
-    width:100%;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#43cea2;
-
-    color:white;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-}
-
-button:hover{
-
-    background:#2ebd92;
-
-}
-
-a{
-
-    text-decoration:none;
-
-}
-
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign up · Air Quality Dashboard</title>
+<link rel="stylesheet" href="auth.css">
 </head>
-
 <body>
 
-<div class="signup-container">
+<div class="auth-shell">
 
-    <h1>🌍 AQI Signup</h1>
+  <!-- LEFT: atmosphere -->
+  <div class="atmosphere">
+    <canvas id="particleCanvas"></canvas>
 
-    <input
-    type="text"
-    id="username"
-    placeholder="Username">
+    <div class="atmosphere-content">
+      <div class="brand"><span class="dot"></span> AIR QUALITY DASHBOARD</div>
+      <h1 class="headline">Track any city.<br><span>Get alerted first.</span></h1>
+      <p class="subline">Save favorite cities, watch AQI trends, and get predictions before the air turns bad.</p>
 
-    <input
-    type="email"
-    id="email"
-    placeholder="Email">
+      <div class="live-pill">
+        <span class="swatch" id="liveSwatch"></span>
+        Live sample · AQI <b id="liveAqiValue">42</b> · <span id="liveAqiLabel">Good</span>
+      </div>
+    </div>
 
-    <input
-    type="password"
-    id="password"
-    placeholder="Password">
+    <div class="atmosphere-foot">SECURE CONNECTION · SESSION ENCRYPTED</div>
+  </div>
 
-    <button id="signupBtn">
+  <!-- RIGHT: form -->
+  <div class="form-side">
+    <div class="form-card">
+      <h1>Create your account</h1>
+      <p class="sub">Set up monitoring in under a minute.</p>
 
-        Signup
+      <div class="error-box" id="errorBox"></div>
 
-    </button>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Uttam" autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="At least 6 characters" autocomplete="new-password">
+        </div>
+        <div class="field">
+          <label for="confirmPassword">Confirm password</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" autocomplete="new-password">
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Create account</button>
+      </form>
 
-    <br><br>
-
-    <a href="login.html">
-
-        Already have an account?
-
-    </a>
+      <div class="switch-line">
+        Already have an account? <a href="login.html">Log in</a>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<script src="signup.js"></script>
-
+<script src="auth.js"></script>
 </body>
 </html>

@@ -1,130 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Login</title>
-
-<style>
-
-body{
-
-    margin:0;
-
-    height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:linear-gradient(
-        135deg,
-        #4facfe,
-        #00f2fe
-    );
-
-    font-family:Arial,sans-serif;
-
-}
-
-.login-container{
-
-    background:white;
-
-    padding:40px;
-
-    border-radius:20px;
-
-    width:350px;
-
-    text-align:center;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.2);
-
-}
-
-h1{
-
-    color:#333;
-
-}
-
-input{
-
-    width:90%;
-
-    padding:12px;
-
-    margin:10px 0;
-
-    border-radius:10px;
-
-    border:1px solid #ccc;
-
-}
-
-button{
-
-    width:100%;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#4facfe;
-
-    color:white;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-}
-
-button:hover{
-
-    background:#2196f3;
-
-}
-
-</style>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in · Air Quality Dashboard</title>
+<link rel="stylesheet" href="auth.css">
 </head>
-
 <body>
 
-<div class="login-container">
+<div class="auth-shell">
 
-    <h1>🌍 AQI Login</h1>
+  <!-- LEFT: atmosphere -->
+  <div class="atmosphere">
+    <canvas id="particleCanvas"></canvas>
 
-    <input
-    type="email"
-    id="email"
-    placeholder="Email">
+    <div class="atmosphere-content">
+      <div class="brand"><span class="dot"></span> AIR QUALITY DASHBOARD</div>
+      <h1 class="headline">Know your air<br><span>before you breathe it.</span></h1>
+      <p class="subline">Real-time AQI, pollutant breakdowns, and forecasts for any city, in one place.</p>
 
-    <input
-    type="password"
-    id="password"
-    placeholder="Password">
+      <div class="live-pill">
+        <span class="swatch" id="liveSwatch"></span>
+        Live sample · AQI <b id="liveAqiValue">42</b> · <span id="liveAqiLabel">Good</span>
+      </div>
+    </div>
 
-    <button id="loginBtn">
+    <div class="atmosphere-foot">SECURE CONNECTION · SESSION ENCRYPTED</div>
+  </div>
 
-        Login
+  <!-- RIGHT: form -->
+  <div class="form-side">
+    <div class="form-card">
+      <h1>Welcome back</h1>
+      <p class="sub">Log in to see today's air quality.</p>
 
-    </button>
+      <div class="error-box" id="errorBox"></div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">Log in</button>
+      </form>
+
+      <div class="switch-line">
+        Don't have an account? <a href="signup.html">Create one</a>
+      </div>
+    </div>
+  </div>
 
 </div>
 
-<script src="login.js"></script>
-
+<script src="auth.js"></script>
 </body>
 </html>
