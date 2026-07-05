@@ -38,16 +38,7 @@ app.get("/api/air", async (req, res) => {
         );
         const weather = weatherResponse.data;
 
-        // UV Index requires a separate call (One Call API), using coords
-        let uvIndex = null;
-        try {
-            const uvResponse = await axios.get(
-                `https://api.openweathermap.org/data/3.0/onecall?lat=${weather.coord.lat}&lon=${weather.coord.lon}&exclude=minutely,hourly,daily,alerts&appid=${WEATHER_KEY}`
-            );
-            uvIndex = uvResponse.data.current.uvi;
-        } catch (uvErr) {
-            console.log("UV fetch failed:", uvErr.message);
-        }
+       
 
         res.json({
             aqi: data.aqi,
@@ -65,7 +56,7 @@ app.get("/api/air", async (req, res) => {
             pressure: weather.main.pressure,
             visibility: weather.visibility,
             wind: weather.wind.speed,
-            uvIndex: uvIndex,
+            uvIndex: "N/A",
             icon: weather.weather[0].icon,
             description: weather.weather[0].description
         });
