@@ -28,43 +28,72 @@ app.get("/api/air", async (req, res) => {
     try {
         const city = req.query.city;
 
-        const response = await axios.get(
+        // ===== WAQI (AQI) =====
+        const waqiResponse = await axios.get(
             `https://api.waqi.info/feed/${city}/?token=${API_KEY}`
         );
-        const data = response.data.data;
 
+        const waqi = waqiResponse.data.data;
+
+        // ===== OpenWeather Weather =====
         const weatherResponse = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_KEY}`
         );
+
         const weather = weatherResponse.data;
 
-       
+        // ===== OpenWeather Air Pollution =====
+        const pollutionResponse = await axios.get(
+            `https://api.openweathermap.org/data/2.5/air_pollution?lat=${weather.coord.lat}&lon=${weather.coord.lon}&appid=${WEATHER_KEY}`
+        );
+
+        const pollution = pollutionResponse.data.list[0].components;
+
+        console.log("========== OPENWEATHER AIR POLLUTION ==========");
+        console.log(pollution);
+        console.log("==============================================");
 
         res.json({
-            aqi: data.aqi,
-            pm25: data.iaqi?.pm25?.v ?? 0,
-            pm10: data.iaqi?.pm10?.v ?? 0,
-            no2: data.iaqi?.no2?.v ?? 0,
-            co: data.iaqi?.co?.v ?? 0,
-            so2: data.iaqi?.so2?.v ?? 0,
-            o3: data.iaqi?.o3?.v ?? 0,
-            lat: data.city.geo[0],
-            lon: data.city.geo[1],
+            // AQI from WAQI
+            aqi: waqi.aqi,
+
+            // Pollutants from OpenWeather
+            pm25: pollution.pm2_5,
+            pm10: pollution.pm10,
+            no2: pollution.no2,
+            co: pollution.co,
+            so2: pollution.so2,
+            o3: pollution.o3,
+
+            // Location
+            lat: weather.coord.lat,
+            lon: weather.coord.lon,
+
+            // Weather
             temperature: weather.main.temp,
             feelsLike: weather.main.feels_like,
             humidity: weather.main.humidity,
             pressure: weather.main.pressure,
             visibility: weather.visibility,
             wind: weather.wind.speed,
+
+            // OpenWeather Current Weather API doesn't provide UV
             uvIndex: "N/A",
+
             icon: weather.weather[0].icon,
             description: weather.weather[0].description
         });
 
     } catch (error) {
         console.log(error.message);
-        if (error.response) console.log(error.response.data);
-        res.status(500).json({ error: error.message });
+
+        if (error.response) {
+            console.log(error.response.data);
+        }
+
+        res.status(500).json({
+            error: error.message
+        });
     }
 });
 

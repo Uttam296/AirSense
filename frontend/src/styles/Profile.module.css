@@ -1,4 +1,4 @@
-body{
+.page{
 
     margin:0;
 
@@ -17,7 +17,7 @@ body{
         rgba(255,255,255,.08),
         rgba(255,255,255,.08)
     ),
-    url("images/profile-bg.png");
+    url("/images/profile-bg.png");
 
     background-size:cover;
 
